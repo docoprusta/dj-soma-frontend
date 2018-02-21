@@ -1,18 +1,35 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HttpModule} from '@angular/http';
+import { HttpModule } from '@angular/http';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { AppRoutingModule } from './/app-routing.module';
+import { PlaylistComponent } from './playlist/playlist.component';
+import { SearchComponent } from './search/search.component';
+import { SongService } from './services/song.service';
+import { YoutubeService } from './services/youtube.service';
+
+const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent,
+    PlaylistComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule,
+    Ng4LoadingSpinnerModule.forRoot(),
+    SocketIoModule.forRoot(config) 
   ],
-  providers: [],
+  providers: [SongService, YoutubeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

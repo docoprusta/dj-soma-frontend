@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="col-xs-auto">
+    <input type="text"
+           ng-pattern="/^[a-zA-Z]*$/"
+           class="form-control"
+           #searchBar
+           (keyup)="searchTerm$.next($event.target.value)">
+    <br>
+    <nav role="button"
+         *ngFor="let title of youtubeService.titles; let i = index"
+         (click)="onBreadCrumbClick(i)"
+         aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <img height="70px"
+             width="70px"
+             src="{{youtubeService.images[i]}}">
+        <li class="breadcrumb-item active"
+            aria-current="page">{{title}}</li>
+      </ol>
+    </nav>
+  </div>
+</div>

@@ -23,6 +23,8 @@
     "@angular/router": "^5.1.0",
     "angular-dev-kit": "^1.0.0",
     "core-js": "^2.4.1",
+    "ng4-loading-spinner": "^1.1.1",
+    "ngx-socket-io": "^1.0.8",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
