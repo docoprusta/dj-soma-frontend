@@ -15,14 +15,15 @@ import { YoutubeService } from '../services/youtube.service';
 export class SearchComponent {
 
   title = 'app';
+
   private results: Object;
-  private searchTerm$ = new Subject<string>();;
+  public searchTerm$ = new Subject<string>();;
 
   constructor(
     private http: Http,
     private router: Router,
     private songService: SongService,
-    private youtubeService: YoutubeService
+    public youtubeService: YoutubeService
   ) {
     this.youtubeService.search(this.searchTerm$)
       .subscribe(results => {
@@ -35,17 +36,8 @@ export class SearchComponent {
     this.youtubeService.clearEveryArray();
   }
 
-  postSong(index: number) {
-    const newSong = new Song(
-      this.youtubeService.titles[index],
-      this.youtubeService.videoIds[index],
-      this.youtubeService.images[index]
-    );
-    this.songService.postSong(newSong).subscribe(response => console.log(response.text()));
-  }
-
   onBreadCrumbClick(index) {
-    this.postSong(index);
+    this.songService.sendPostSong(index);
     this.router.navigateByUrl('/playlist');
   }
 

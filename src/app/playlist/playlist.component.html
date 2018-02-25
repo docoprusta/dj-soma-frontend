@@ -1,25 +1,27 @@
 <div class="container">
   <div class="col-xs-auto">
-    <div class="progress">
-      <div class="progress-bar"
-           role="progressbar"
-           [ngStyle]="{width:songService.progress/100 | percent:'1.0-1'}"
-           aria-valuemin="0"
-           aria-valuemax="100"
-           style="width: 60%;">
-        {{songService.progress}}
-      </div>
-    </div>
+    <p *ngIf="songService.alreadyAdded"
+       class="text-danger">This video is already added to the playlist</p>
+    <p *ngIf="!songService.canAddNewSong"
+       class="text-danger">You can't add a new song for a while</p>
+    <p *ngIf="songService.remainingTime > 1"
+       class="text-danger">You can't add a new song for {{songService.remainingTime | minuteSeconds}}</p>
     <nav role="button"
-         *ngFor="let title of titles; let i = index"
+         *ngFor="let title of songService.titles; let i = index"
          aria-label="breadcrumb">
       <ol class="breadcrumb">
+        <div *ngIf="i == 0 && songService.progress > 0.1"
+             id="progressBar"
+             class="breadcrumb"
+             [ngStyle]="{width:songService.progress/100 | percent:'1.0-1'}">
+        </div>
         <img height="70px"
              width="70px"
-             src="{{images[i]}}">
+             src="{{songService.images[i]}}">
         <li class="breadcrumb-item active"
             aria-current="page">{{title}}</li>
+        <li class="breadcrumb-item active"
+            aria-current="page">{{songService.durations[i] | minuteSeconds}}</li>
       </ol>
     </nav>
   </div>
-</div>

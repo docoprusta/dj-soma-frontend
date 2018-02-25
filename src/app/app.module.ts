@@ -12,6 +12,7 @@ import { PlaylistComponent } from './playlist/playlist.component';
 import { SearchComponent } from './search/search.component';
 import { SongService } from './services/song.service';
 import { YoutubeService } from './services/youtube.service';
+import { MinuteSecondsPipe } from './minute-seconds.pipe';
 
 const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
 
@@ -20,16 +21,21 @@ const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
     AppComponent,
     NavbarComponent,
     PlaylistComponent,
-    SearchComponent
+    SearchComponent,
+    MinuteSecondsPipe
   ],
   imports: [
     BrowserModule,
     HttpModule,
     AppRoutingModule,
     Ng4LoadingSpinnerModule.forRoot(),
-    SocketIoModule.forRoot(config) 
+    SocketIoModule.forRoot(config)
   ],
-  providers: [SongService, YoutubeService],
+  providers: [
+    SongService,
+    YoutubeService,
+    MinuteSecondsPipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

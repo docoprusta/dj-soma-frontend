@@ -16,6 +16,8 @@
              src="{{youtubeService.images[i]}}">
         <li class="breadcrumb-item active"
             aria-current="page">{{title}}</li>
+        <li class="breadcrumb-item active"
+            aria-current="page">{{youtubeService.durations[i] | minuteSeconds}}</li>
       </ol>
     </nav>
   </div>
