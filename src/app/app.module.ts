@@ -7,14 +7,14 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { SearchComponent } from './search/search.component';
 import { SongService } from './services/song.service';
 import { YoutubeService } from './services/youtube.service';
 import { MinuteSecondsPipe } from './minute-seconds.pipe';
 
-const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
+const config: SocketIoConfig = { url: 'http://192.168.1.4:5000', options: {} };
 
 @NgModule({
   declarations: [
@@ -28,6 +28,7 @@ const config: SocketIoConfig = { url: 'http://localhost:5000', options: {} };
     BrowserModule,
     HttpModule,
     AppRoutingModule,
+
     Ng4LoadingSpinnerModule.forRoot(),
     SocketIoModule.forRoot(config)
   ],

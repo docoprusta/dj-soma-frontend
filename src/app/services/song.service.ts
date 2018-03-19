@@ -11,7 +11,7 @@ import { YoutubeService } from './youtube.service';
 export class SongService {
     public songs: Array<Song> = new Array<Song>();
 
-    private baseUrl: string = "http://127.0.0.1:5000";
+    private baseUrl: string = "http://192.168.1.4:5000";
     private songRoute: string = "/song";
     private playlistRoute: string = "/playlist";
 

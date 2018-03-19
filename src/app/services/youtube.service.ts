@@ -20,6 +20,8 @@ export class YoutubeService {
 
     private cache = [];
 
+    public checked: boolean = true;
+
     inputString: string;
 
     constructor(private http: Http) { }
@@ -39,7 +41,11 @@ export class YoutubeService {
     search(terms: Observable<string>) {
         return terms.debounceTime(400)
             .distinctUntilChanged()
-            .switchMap(term => this.searchSongs(term));
+            .switchMap(term => {
+                const queryString = this.checked ? term + " lyrics" : term;
+                console.log(this.checked);
+                return this.searchSongs(queryString);
+            });
     }
 
     searchSongs(term: string) {

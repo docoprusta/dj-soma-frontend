@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Http } from '@angular/http';
 import { Router } from '@angular/router';
 import { SongService } from '../services/song.service';
@@ -12,12 +12,14 @@ import { YoutubeService } from '../services/youtube.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css']
 })
-export class SearchComponent {
 
+export class SearchComponent {
+  @ViewChild("withLyricsCheckbox") withLyricsCheckbox: ElementRef;
+  @ViewChild("searchBar") searchBar: ElementRef;
   title = 'app';
 
   private results: Object;
-  public searchTerm$ = new Subject<string>();;
+  public searchTerm$ = new Subject<string>();
 
   constructor(
     private http: Http,
@@ -28,8 +30,20 @@ export class SearchComponent {
     this.youtubeService.search(this.searchTerm$)
       .subscribe(results => {
         this.results = results.json();
+        this.youtubeService.checked = this.withLyricsCheckbox.nativeElement.checked;
         this.youtubeService.populateResults(this.results);
       });
+  }
+
+  withLyricsCheckboxChanged() {
+    const queryString = this.withLyricsCheckbox.nativeElement.checked ?
+      this.searchBar.nativeElement.value + " lyrics" : this.searchBar.nativeElement.value;
+    
+    this.youtubeService.searchSongs(queryString).subscribe(results => {
+      this.results = results.json();
+      this.youtubeService.checked = this.withLyricsCheckbox.nativeElement.checked;
+      this.youtubeService.populateResults(this.results);
+    });
   }
 
   ngOnInit() {

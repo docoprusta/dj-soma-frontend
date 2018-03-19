@@ -1,5 +1,12 @@
 <div class="container">
   <div class="col-xs-auto">
+    <input type="checkbox"
+           class="form-check-input"
+           id="withLyricsCheckbox"
+           (change)="withLyricsCheckboxChanged()"
+           #withLyricsCheckbox
+           checked>
+    <label for="withLyricsCheckbox">Search with lyrics suffix</label>
     <input type="text"
            ng-pattern="/^[a-zA-Z]*$/"
            class="form-control"
