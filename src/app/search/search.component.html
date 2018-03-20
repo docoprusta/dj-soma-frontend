@@ -18,13 +18,19 @@
          (click)="onBreadCrumbClick(i)"
          aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <img height="70px"
-             width="70px"
-             src="{{youtubeService.images[i]}}">
-        <li class="breadcrumb-item active"
-            aria-current="page">{{title}}</li>
-        <li class="breadcrumb-item active"
-            aria-current="page">{{youtubeService.durations[i] | minuteSeconds}}</li>
+        <div class="col-xs-auto">
+          <span class="media-left">
+            <img height="70px"
+                 width="70px"
+                 src="{{youtubeService.images[i]}}">
+          </span>
+          <div class="media-body row text-center">
+            <li class="breadcrumb-item active"
+                aria-current="page">{{title}}</li>
+            <li class="breadcrumb-item active"
+                aria-current="page">{{youtubeService.durations[i] | minuteSeconds}}</li>
+          </div>
+        </div>
       </ol>
     </nav>
   </div>

@@ -15,13 +15,22 @@
              class="breadcrumb"
              [ngStyle]="{width:songService.progress/100 | percent:'1.0-1'}">
         </div>
-        <img height="70px"
-             width="70px"
-             src="{{songService.images[i]}}">
-        <li class="breadcrumb-item active"
-            aria-current="page">{{title}}</li>
-        <li class="breadcrumb-item active"
-            aria-current="page">{{songService.durations[i] | minuteSeconds}}</li>
+        <div class="col-xs-auto">
+          <span class="media-left">
+            <img height="70px"
+                 width="70px"
+                 src="{{songService.images[i]}}">
+          </span>
+          <div class="media-body row text-center">
+            <li class="breadcrumb-item active"
+                aria-current="page">{{title}}</li>
+
+            <li class="breadcrumb-item active"
+                aria-current="page">{{songService.durations[i] | minuteSeconds}}</li>
+          </div>
+        </div>
+
+
       </ol>
     </nav>
   </div>
