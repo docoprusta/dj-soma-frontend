@@ -29,6 +29,7 @@ export class SearchComponent {
   ) {
     this.youtubeService.search(this.searchTerm$)
       .subscribe(results => {
+        this.searchBar.nativeElement.blur();
         this.results = results.json();
         this.youtubeService.checked = this.withLyricsCheckbox.nativeElement.checked;
         this.youtubeService.populateResults(this.results);
