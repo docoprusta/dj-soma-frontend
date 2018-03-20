@@ -39,7 +39,7 @@ export class YoutubeService {
     }
 
     search(terms: Observable<string>) {
-        return terms.debounceTime(400)
+        return terms.debounceTime(600)
             .distinctUntilChanged()
             .switchMap(term => {
                 const queryString = this.checked ? term + " lyrics" : term;
