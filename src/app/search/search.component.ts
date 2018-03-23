@@ -25,8 +25,7 @@ export class SearchComponent {
     private router: Router,
     private songService: SongService,
     public youtubeService: YoutubeService
-  ) {
-  }
+  ) {}
 
   withLyricsCheckboxChanged() {
     const queryString = this.withLyricsCheckbox.nativeElement.checked ?
