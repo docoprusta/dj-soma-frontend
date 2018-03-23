@@ -38,16 +38,6 @@ export class YoutubeService {
             })
     }
 
-    search(terms: Observable<string>) {
-        return terms.debounceTime(600)
-            .distinctUntilChanged()
-            .switchMap(term => {
-                const queryString = this.checked ? term + " lyrics" : term;
-                console.log(this.checked);
-                return this.searchSongs(queryString);
-            });
-    }
-
     searchSongs(term: string) {
         this.inputString = term;
         const url = "https://www.googleapis.com/youtube/v3/search";

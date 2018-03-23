@@ -19,7 +19,6 @@ export class SearchComponent {
   title = 'app';
 
   private results: Object;
-  public searchTerm$ = new Subject<string>();
 
   constructor(
     private http: Http,
@@ -27,16 +26,20 @@ export class SearchComponent {
     private songService: SongService,
     public youtubeService: YoutubeService
   ) {
-    this.youtubeService.search(this.searchTerm$)
-      .subscribe(results => {
-        this.searchBar.nativeElement.blur();
-        this.results = results.json();
-        this.youtubeService.checked = this.withLyricsCheckbox.nativeElement.checked;
-        this.youtubeService.populateResults(this.results);
-      });
   }
 
   withLyricsCheckboxChanged() {
+    const queryString = this.withLyricsCheckbox.nativeElement.checked ?
+      this.searchBar.nativeElement.value + " lyrics" : this.searchBar.nativeElement.value;
+
+    this.youtubeService.searchSongs(queryString).subscribe(results => {
+      this.results = results.json();
+      this.youtubeService.checked = this.withLyricsCheckbox.nativeElement.checked;
+      this.youtubeService.populateResults(this.results);
+    });
+  }
+
+  onEnter() {
     const queryString = this.withLyricsCheckbox.nativeElement.checked ?
       this.searchBar.nativeElement.value + " lyrics" : this.searchBar.nativeElement.value;
     
@@ -45,6 +48,8 @@ export class SearchComponent {
       this.youtubeService.checked = this.withLyricsCheckbox.nativeElement.checked;
       this.youtubeService.populateResults(this.results);
     });
+
+    this.searchBar.nativeElement.blur();
   }
 
   ngOnInit() {

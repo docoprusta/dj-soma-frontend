@@ -11,7 +11,7 @@
            ng-pattern="/^[a-zA-Z]*$/"
            class="form-control"
            #searchBar
-           (keyup)="searchTerm$.next($event.target.value)">
+           (keyup.enter)="onEnter()">
     <br>
     <nav role="button"
          *ngFor="let title of youtubeService.titles; let i = index"
