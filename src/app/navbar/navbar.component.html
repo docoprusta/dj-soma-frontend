@@ -6,7 +6,7 @@
                 <li class="dropdown pull-left">
                     <a routerLink="/playlist">Playlist</a>
                 </li>
-                <li *ngIf="songService.remainingTime == 0"
+                <li *ngIf="songService.remainingTime <= 1"
                     class="dropdown pull-left">
                     <a routerLink="/search">Search</a>
                 </li>

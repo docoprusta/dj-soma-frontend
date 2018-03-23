@@ -31,7 +31,10 @@ export class SongService {
 
     public remainingTime: number = 0;
 
-    constructor(private http: Http, private socket: Socket, private youtubeService: YoutubeService) { }
+    constructor(
+        private http: Http,
+        private socket: Socket,
+        private youtubeService: YoutubeService) { }
 
     sendPostSong(index: number) {
         this.newSong = new Song(

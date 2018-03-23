@@ -32,7 +32,7 @@
       </ol>
     </nav>
     <a class="btn icon-btn btn-success"
-       *ngIf="songService.remainingTime == 0"
+       *ngIf="songService.remainingTime <= 1"
        routerLink="/search">
       <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
       Add
