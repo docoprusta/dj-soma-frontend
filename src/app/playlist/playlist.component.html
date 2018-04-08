@@ -1,39 +1,29 @@
 <div class="container">
   <div class="col-xs-auto">
-    <p *ngIf="songService.alreadyAdded"
-       class="text-danger">This video is already added to the playlist</p>
-    <p *ngIf="!songService.canAddNewSong"
-       class="text-danger">You can't add a new song for a while</p>
-    <p *ngIf="songService.remainingTime > 1"
-       class="text-danger">You can't add a new song for {{songService.remainingTime | minuteSeconds}}</p>
-    <nav role="button"
-         *ngFor="let title of songService.titles; let i = index"
-         aria-label="breadcrumb">
+    <p *ngIf="songService.alreadyAdded" class="text-danger">This video is already added to the playlist</p>
+    <p *ngIf="!songService.canAddNewSong" class="text-danger">You can't add a new song for a while</p>
+    <p *ngIf="songService.remainingTime > 1" class="text-danger">You can't add a new song for {{songService.remainingTime | minuteSeconds}}</p>
+
+    <label class="center-block text-center">Volume</label>
+    <input type="range" [(ngModel)]="s" role="button" min="1" max="100" class="slider" id="volumeSlider">
+    <br>
+    <nav role="button" *ngFor="let title of songService.titles; let i = index" aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <div *ngIf="i == 0 && songService.progress > 0.1"
-             id="progressBar"
-             class="breadcrumb"
-             [ngStyle]="{width:songService.progress/100 | percent:'1.0-1'}">
+        <div *ngIf="i == 0 && songService.progress > 0.1" id="progressBar" class="breadcrumb" [ngStyle]="{width:songService.progress/100 | percent:'1.0-1'}">
         </div>
         <div class="col-xs-auto">
           <span class="media-left">
-            <img height="70px"
-                 width="70px"
-                 src="{{songService.images[i]}}">
+            <img height="70px" width="70px" src="{{songService.images[i]}}">
           </span>
           <div class="media-body row text-center">
-            <li class="breadcrumb-item active"
-                aria-current="page">{{title}}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{title}}</li>
 
-            <li class="breadcrumb-item active"
-                aria-current="page">{{songService.durations[i] | minuteSeconds}}</li>
+            <li class="breadcrumb-item active" aria-current="page">{{songService.durations[i] | minuteSeconds}}</li>
           </div>
         </div>
       </ol>
     </nav>
-    <a class="btn icon-btn btn-success"
-       *ngIf="songService.remainingTime <= 1"
-       routerLink="/search">
+    <a class="btn icon-btn btn-success" *ngIf="songService.remainingTime <= 1" routerLink="/search">
       <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
       Add
     </a>

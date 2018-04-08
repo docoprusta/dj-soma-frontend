@@ -41,7 +41,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.log(this.songService.volume);
     this.populateSongs();
 
     this.songService.isFirst = false;
