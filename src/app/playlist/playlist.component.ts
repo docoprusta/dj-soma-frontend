@@ -14,6 +14,8 @@ import { MinuteSecondsPipe } from '../minute-seconds.pipe';
 export class PlaylistComponent implements OnInit {
   private playlist;
 
+  private volume: number;
+
   constructor(
     public songService: SongService,
     private spinnerService: Ng4LoadingSpinnerService) { }
@@ -40,8 +42,11 @@ export class PlaylistComponent implements OnInit {
     this.spinnerService.hide();
   }
 
+  onVolumeChange() {
+    this.songService.setVolume(this.volume).subscribe(data => {});
+  }
+
   ngOnInit() {
-    console.log(this.songService.volume);
     this.populateSongs();
 
     this.songService.isFirst = false;
@@ -71,6 +76,14 @@ export class PlaylistComponent implements OnInit {
     this.songService.songEnded().subscribe(data => {
       this.populateSongs();
     });
+
+    this.songService.getVolume().subscribe(data => {
+      this.volume = data.json().volume;
+    });
+
+    this.songService.volumeChanged().subscribe(volume => {
+      this.volume = parseInt(volume);
+    })
 
   }
 }

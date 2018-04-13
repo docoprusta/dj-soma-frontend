@@ -11,9 +11,10 @@ import { YoutubeService } from './youtube.service';
 export class SongService {
     public songs: Array<Song> = new Array<Song>();
 
-    private baseUrl: string = localStorage.getItem("baseUrl");
-    private songRoute: string = "/song";
-    private playlistRoute: string = "/playlist";
+    private readonly baseUrl: string = localStorage.getItem("baseUrl");
+    private readonly songRoute: string = "/song";
+    private readonly playlistRoute: string = "/playlist";
+    private readonly volumeRoute: string = "/volume";
 
     public alreadyAdded: boolean = false;
 
@@ -34,7 +35,7 @@ export class SongService {
     constructor(
         private http: Http,
         private socket: Socket,
-        private youtubeService: YoutubeService) { }
+        private youtubeService: YoutubeService) {}
 
     sendPostSong(index: number) {
         this.newSong = new Song(
@@ -45,7 +46,6 @@ export class SongService {
         );
         this.postSong(this.newSong).subscribe(
             data => {
-                console.log(data);
                 this.canAddNewSong = true;
             },
             error => {
@@ -78,6 +78,10 @@ export class SongService {
         return this.socket.fromEvent("songAdded");
     }
 
+    volumeChanged(): Observable<string> {
+        return this.socket.fromEvent("volumeChanged");
+    }
+
     songEnded() {
         return this.socket.fromEvent("songEnded");
     }
@@ -88,6 +92,14 @@ export class SongService {
 
     getPlaylist() {
         return this.http.get(this.baseUrl + this.playlistRoute);
+    }
+
+    getVolume() {
+        return this.http.get(this.baseUrl + this.volumeRoute);
+    }
+
+    setVolume(volume: number) {
+        return this.http.put(this.baseUrl + this.volumeRoute, {"value": volume});
     }
 
 }

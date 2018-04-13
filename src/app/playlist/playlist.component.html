@@ -5,7 +5,7 @@
     <p *ngIf="songService.remainingTime > 1" class="text-danger">You can't add a new song for {{songService.remainingTime | minuteSeconds}}</p>
 
     <label class="center-block text-center">Volume</label>
-    <input type="range" [(ngModel)]="s" role="button" min="1" max="100" class="slider" id="volumeSlider">
+    <input [disabled]="this.songService.videoIds.length === 0" type="range" [(ngModel)]="volume" (change)="onVolumeChange()" role="button" min="1" max="100" class="slider" id="volumeSlider">
     <br>
     <nav role="button" *ngFor="let title of songService.titles; let i = index" aria-label="breadcrumb">
       <ol class="breadcrumb">
