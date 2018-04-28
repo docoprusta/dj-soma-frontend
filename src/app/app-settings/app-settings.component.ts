@@ -8,16 +8,19 @@ import { Router } from '@angular/router';
 })
 export class AppSettingsComponent implements OnInit {
   @ViewChild("baseUrlInput") baseUrlInput: ElementRef;
+  @ViewChild("waitingTimeInput") waitingTimeInput: ElementRef;
   public baseUrl: string;
 
   constructor(private router: Router) { }
 
   ngOnInit() {
     this.baseUrlInput.nativeElement.value = localStorage.getItem("baseUrl");
+    this.waitingTimeInput.nativeElement.value = localStorage.getItem("waitingTime");
   }
 
   onSaveClick() {
     localStorage.setItem("baseUrl", this.baseUrlInput.nativeElement.value);
+    localStorage.setItem("waitingTime", this.waitingTimeInput.nativeElement.value);
     this.router.navigateByUrl('/');
   }
 
