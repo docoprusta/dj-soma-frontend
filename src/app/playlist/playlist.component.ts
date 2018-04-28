@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SongService } from '../services/song.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { DatePipe } from '@angular/common';
@@ -13,9 +13,7 @@ import { MinuteSecondsPipe } from '../minute-seconds.pipe';
 
 export class PlaylistComponent implements OnInit {
   private playlist;
-
   private volume: number;
-
   constructor(
     public songService: SongService,
     private spinnerService: Ng4LoadingSpinnerService) { }
@@ -44,6 +42,10 @@ export class PlaylistComponent implements OnInit {
 
   onVolumeChange() {
     this.songService.setVolume(this.volume).subscribe(data => {});
+  }
+
+  autoPlayCheckboxChanged() {
+    this.songService.setAutoPlay(this.songService.autoPlay).subscribe();
   }
 
   ngOnInit() {
@@ -83,7 +85,16 @@ export class PlaylistComponent implements OnInit {
 
     this.songService.volumeChanged().subscribe(volume => {
       this.volume = parseInt(volume);
-    })
+    });
+
+    this.songService.getAutoplayChanged().subscribe(autoplay => {
+      console.log(autoplay)
+      this.songService.autoPlay = !!autoplay;
+    });
+
+    this.songService.getAutoPlay().subscribe(data => {
+      this.songService.autoPlay = data.json().value
+    });
 
   }
 }

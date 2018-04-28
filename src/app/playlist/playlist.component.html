@@ -4,9 +4,18 @@
     <p *ngIf="!songService.canAddNewSong" class="text-danger">You can't add a new song for a while</p>
     <p *ngIf="songService.remainingTime > 1" class="text-danger">You can't add a new song for {{songService.remainingTime | minuteSeconds}}</p>
 
-    <label class="center-block text-center">Volume</label>
-    <input [disabled]="this.songService.videoIds.length === 0" type="range" [(ngModel)]="volume" (change)="onVolumeChange()" role="button" min="1" max="100" class="slider" id="volumeSlider">
-    <br>
+    <div class="form-group">
+      <label class="center-block text-center">Volume</label>
+      <input [disabled]="this.songService.videoIds.length === 0" type="range" [(ngModel)]="volume" (change)="onVolumeChange()"
+        role="button" min="1" max="100" class="slider" id="volumeSlider">
+    </div>
+
+    <div class="form-group">
+      <input id="autoPlayCheckbox" #autoPlayCheckbox [(ngModel)]="songService.autoPlay" (change)="autoPlayCheckboxChanged()" type="checkbox"
+        class="form-check-input">
+      <label for="autoPlayCheckbox">Auto play</label>
+    </div>
+
     <nav role="button" *ngFor="let title of songService.titles; let i = index" aria-label="breadcrumb">
       <ol class="breadcrumb">
         <div *ngIf="i == 0 && songService.progress > 0.1" id="progressBar" class="breadcrumb" [ngStyle]="{width:songService.progress/100 | percent:'1.0-1'}">
@@ -17,7 +26,6 @@
           </span>
           <div class="media-body row text-center">
             <li class="breadcrumb-item active" aria-current="page">{{title}}</li>
-
             <li class="breadcrumb-item active" aria-current="page">{{songService.durations[i] | minuteSeconds}}</li>
           </div>
         </div>

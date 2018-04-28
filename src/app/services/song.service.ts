@@ -15,6 +15,7 @@ export class SongService {
     private readonly songRoute: string = "/song";
     private readonly playlistRoute: string = "/playlist";
     private readonly volumeRoute: string = "/volume";
+    private readonly autoPlayRoute: string = "/autoplay";
 
     public alreadyAdded: boolean = false;
 
@@ -31,6 +32,8 @@ export class SongService {
     public newSong: Song;
 
     public remainingTime: number = 0;
+
+    public autoPlay: boolean;
 
     constructor(
         private http: Http,
@@ -74,6 +77,10 @@ export class SongService {
         });
     }
 
+    getAutoplayChanged() {
+        return this.socket.fromEvent("autoplayChanged");
+    }
+
     songAdded(): Observable<string> {
         return this.socket.fromEvent("songAdded");
     }
@@ -100,6 +107,14 @@ export class SongService {
 
     setVolume(volume: number) {
         return this.http.put(this.baseUrl + this.volumeRoute, {"value": volume});
+    }
+
+    setAutoPlay(autoPlay: boolean) {
+        return this.http.put(this.baseUrl + this.autoPlayRoute, {"value": autoPlay});
+    }
+
+    getAutoPlay() {
+        return this.http.get(this.baseUrl + this.autoPlayRoute);
     }
 
 }
