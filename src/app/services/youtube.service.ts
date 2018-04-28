@@ -87,7 +87,7 @@ export class YoutubeService {
                     .subscribe(data => {
                         const responseJson = data.json();
                         const duration = this.YoutubeDurationToSeconds(responseJson.items[0].contentDetails.duration);
-                        if (duration < 600) {
+                        if (duration < 600 && duration > 0) {
                             this.durations.push(duration);
                             this.titles.push(element.snippet.title);
                             this.videoIds.push(element.id.videoId);
