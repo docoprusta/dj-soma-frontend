@@ -16,6 +16,7 @@ export class SongService {
     private readonly playlistRoute: string = "/playlist";
     private readonly volumeRoute: string = "/volume";
     private readonly autoPlayRoute: string = "/autoplay";
+    private readonly waitingTimeRoute: string = "/waiting-time";
 
     public alreadyAdded: boolean = false;
 
@@ -65,6 +66,10 @@ export class SongService {
         this.socket.emit("joined");
     }
 
+    isAdmin() {
+        return localStorage.getItem("baseUrl").includes("127.0.0.1");
+    }
+
     getTimePos() {
         this.socket.on("timePosChanged", data => this.progress = data);
     }
@@ -75,6 +80,18 @@ export class SongService {
                 this.remainingTime = data;
             }
         });
+    }
+
+    getWaitingTimeChanged(): Observable<string> {
+        return this.socket.fromEvent("waitingTimeChanged");        
+    }
+
+    setWaitingTime(waitingTime: number) {
+        return this.http.put(this.baseUrl + this.waitingTimeRoute, {"value": waitingTime});
+    }
+
+    getWaitingTime() {
+        return this.http.get(this.baseUrl + this.waitingTimeRoute);
     }
 
     getAutoplayChanged() {

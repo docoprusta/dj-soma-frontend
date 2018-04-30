@@ -88,7 +88,6 @@ export class PlaylistComponent implements OnInit {
     });
 
     this.songService.getAutoplayChanged().subscribe(autoplay => {
-      console.log(autoplay)
       this.songService.autoPlay = !!autoplay;
     });
 
