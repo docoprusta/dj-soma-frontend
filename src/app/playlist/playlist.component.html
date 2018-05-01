@@ -28,6 +28,11 @@
             <li class="breadcrumb-item active" aria-current="page">{{title}}</li>
             <li class="breadcrumb-item active" aria-current="page">{{songService.durations[i] | minuteSeconds}}</li>
           </div>
+          <div class="media-body row text-right">
+            <button class="btn icon-btn btn-danger" (click)="onDelete(i)">
+              <span class="glyphicon glyphicon-remove text-success"></span>
+            </button>
+          </div>
         </div>
       </ol>
     </nav>

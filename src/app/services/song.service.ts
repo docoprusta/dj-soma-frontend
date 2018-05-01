@@ -1,5 +1,5 @@
 import { Song } from '../models/song';
-import { Http } from '@angular/http';
+import { Http, Request, RequestOptions } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import { Socket } from 'ngx-socket-io';
@@ -39,7 +39,7 @@ export class SongService {
     constructor(
         private http: Http,
         private socket: Socket,
-        private youtubeService: YoutubeService) {}
+        private youtubeService: YoutubeService) { }
 
     sendPostSong(index: number) {
         this.newSong = new Song(
@@ -83,11 +83,15 @@ export class SongService {
     }
 
     getWaitingTimeChanged(): Observable<string> {
-        return this.socket.fromEvent("waitingTimeChanged");        
+        return this.socket.fromEvent("waitingTimeChanged");
+    }
+
+    getSongDeleted(): Observable<string> {
+        return this.socket.fromEvent("songDeleted");
     }
 
     setWaitingTime(waitingTime: number) {
-        return this.http.put(this.baseUrl + this.waitingTimeRoute, {"value": waitingTime});
+        return this.http.put(this.baseUrl + this.waitingTimeRoute, { "value": waitingTime });
     }
 
     getWaitingTime() {
@@ -114,6 +118,11 @@ export class SongService {
         return this.http.post(this.baseUrl + this.songRoute, song);
     }
 
+    deleteSong(youtubeId: string) {
+        return this.http.delete(this.baseUrl + this.songRoute,
+            new RequestOptions({ body: { "youtubeId": youtubeId } }));
+    }
+
     getPlaylist() {
         return this.http.get(this.baseUrl + this.playlistRoute);
     }
@@ -123,11 +132,11 @@ export class SongService {
     }
 
     setVolume(volume: number) {
-        return this.http.put(this.baseUrl + this.volumeRoute, {"value": volume});
+        return this.http.put(this.baseUrl + this.volumeRoute, { "value": volume });
     }
 
     setAutoPlay(autoPlay: boolean) {
-        return this.http.put(this.baseUrl + this.autoPlayRoute, {"value": autoPlay});
+        return this.http.put(this.baseUrl + this.autoPlayRoute, { "value": autoPlay });
     }
 
     getAutoPlay() {

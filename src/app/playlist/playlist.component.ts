@@ -95,5 +95,14 @@ export class PlaylistComponent implements OnInit {
       this.songService.autoPlay = data.json().value
     });
 
+    this.songService.getSongDeleted().subscribe(data => {
+      this.populateSongs();
+    })
+  }
+
+  onDelete(index: number) {
+    this.songService.deleteSong(this.songService.videoIds[index]).subscribe(
+      data => console.log(data)
+    );
   }
 }
