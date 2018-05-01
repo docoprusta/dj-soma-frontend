@@ -17,7 +17,8 @@ export class SongService {
     private readonly volumeRoute: string = "/volume";
     private readonly autoPlayRoute: string = "/autoplay";
     private readonly waitingTimeRoute: string = "/waiting-time";
-
+    private readonly nextSongRoute: string = "/next-song";
+   
     public alreadyAdded: boolean = false;
 
     public isFirst: boolean = true;
@@ -90,12 +91,20 @@ export class SongService {
         return this.socket.fromEvent("songDeleted");
     }
 
+    getNextSongAdded(): Observable<string> {
+        return this.socket.fromEvent("nextSongAdded");
+    }
+
     setWaitingTime(waitingTime: number) {
         return this.http.put(this.baseUrl + this.waitingTimeRoute, { "value": waitingTime });
     }
 
     getWaitingTime() {
         return this.http.get(this.baseUrl + this.waitingTimeRoute);
+    }
+
+    getNextSong() {
+        return this.http.get(this.baseUrl + this.nextSongRoute);
     }
 
     getAutoplayChanged() {

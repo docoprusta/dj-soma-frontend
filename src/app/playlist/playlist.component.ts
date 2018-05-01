@@ -48,6 +48,13 @@ export class PlaylistComponent implements OnInit {
     this.songService.setAutoPlay(this.songService.autoPlay).subscribe();
   }
 
+  onNextSong() {
+    this.spinnerService.show();
+    this.songService.getNextSong().subscribe(data => {
+      this.spinnerService.hide();      
+    });
+  }
+
   ngOnInit() {
     this.populateSongs();
 
@@ -85,6 +92,10 @@ export class PlaylistComponent implements OnInit {
 
     this.songService.volumeChanged().subscribe(volume => {
       this.volume = parseInt(volume);
+    });
+
+    this.songService.getNextSongAdded().subscribe(data => {
+      this.populateSongs();      
     });
 
     this.songService.getAutoplayChanged().subscribe(autoplay => {

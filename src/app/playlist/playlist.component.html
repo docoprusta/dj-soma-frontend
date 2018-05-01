@@ -28,16 +28,29 @@
             <li class="breadcrumb-item active" aria-current="page">{{title}}</li>
             <li class="breadcrumb-item active" aria-current="page">{{songService.durations[i] | minuteSeconds}}</li>
           </div>
-          <div class="media-body row text-right">
-            <button class="btn icon-btn btn-danger" (click)="onDelete(i)">
-              <span class="glyphicon glyphicon-remove text-success"></span>
-            </button>
-          </div>
+        </div>
+        <div class="media-body row text-right">
+          <button class="btn icon-btn btn-danger" (click)="onDelete(i)">
+            <span class="glyphicon glyphicon-remove text-success"></span>
+          </button>
         </div>
       </ol>
     </nav>
-    <a class="btn icon-btn btn-success" *ngIf="songService.remainingTime <= 1" routerLink="/search">
-      <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
-      Add
-    </a>
+
+    <div class="row">
+      <div class="col-xs-1">
+        <a class="btn icon-btn btn-success" *ngIf="songService.remainingTime <= 1" routerLink="/search">
+          <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+        </a>
+      </div>
+      <div class="container" *ngIf="songService.autoPlay && songService.videoIds.length > 0">
+        <div class="media-body text-right">
+          <button class="btn icon-btn btn-success" (click)="onNextSong()">
+            <span class="glyphicon glyphicon-step-forward img-circle text-success"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
+</div>
