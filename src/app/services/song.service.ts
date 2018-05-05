@@ -72,7 +72,10 @@ export class SongService {
     }
 
     getTimePos() {
-        this.socket.on("timePosChanged", data => this.progress = data);
+        this.socket.on("timePosChanged", data => {
+            this.progress = data
+            console.log(data);
+        });
     }
 
     getRemainingTime() {
