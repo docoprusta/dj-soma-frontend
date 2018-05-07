@@ -19,7 +19,6 @@ export class AppSettingsComponent implements OnInit {
     this.baseUrlInput.nativeElement.value = localStorage.getItem("baseUrl");
 
     this.songService.getWaitingTimeChanged().subscribe(waitingTime => {
-      console.log(waitingTime);
       this.waitingTimeInput.nativeElement.value = waitingTime
     });
 

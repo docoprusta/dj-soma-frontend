@@ -13,7 +13,24 @@
     <div class="form-group">
       <input id="autoPlayCheckbox" #autoPlayCheckbox [(ngModel)]="songService.autoPlay" (change)="autoPlayCheckboxChanged()" type="checkbox"
         class="form-check-input">
-      <label for="autoPlayCheckbox">Auto play</label>
+      <label for="autoPlayCheckbox">Autoplay (Beta)</label>
+    </div>
+    
+    <div class="form-group">
+    <div class="row">
+      <div class="col-xs-1">
+        <a class="btn icon-btn btn-success" *ngIf="songService.remainingTime <= 1" routerLink="/search">
+          <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
+        </a>
+      </div>
+      <div class="container" *ngIf="songService.autoPlay && songService.videoIds.length > 0">
+        <div class="media-body text-right">
+          <button class="btn icon-btn btn-success" (click)="onNextSong()">
+            <span class="glyphicon glyphicon-step-forward img-circle text-success"></span>
+          </button>
+        </div>
+      </div>
+    </div>
     </div>
 
     <nav role="button" *ngFor="let title of songService.titles; let i = index" aria-label="breadcrumb">
@@ -36,21 +53,5 @@
         </div>
       </ol>
     </nav>
-
-    <div class="row">
-      <div class="col-xs-1">
-        <a class="btn icon-btn btn-success" *ngIf="songService.remainingTime <= 1" routerLink="/search">
-          <span class="glyphicon btn-glyphicon glyphicon-plus img-circle text-success"></span>
-        </a>
-      </div>
-      <div class="container" *ngIf="songService.autoPlay && songService.videoIds.length > 0">
-        <div class="media-body text-right">
-          <button class="btn icon-btn btn-success" (click)="onNextSong()">
-            <span class="glyphicon glyphicon-step-forward img-circle text-success"></span>
-          </button>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>

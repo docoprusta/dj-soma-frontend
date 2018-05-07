@@ -56,6 +56,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('asdasd')
     this.populateSongs();
 
     this.songService.isFirst = false;
@@ -86,9 +87,11 @@ export class PlaylistComponent implements OnInit {
       this.populateSongs();
     });
 
-    this.songService.getVolume().subscribe(data => {
-      this.volume = data.json().volume;
-    });
+    if (this.songService.videoIds.length > 0) {
+      this.songService.getVolume().subscribe(data => {
+        this.volume = data.json().volume;
+      });
+    }
 
     this.songService.volumeChanged().subscribe(volume => {
       this.volume = parseInt(volume);
